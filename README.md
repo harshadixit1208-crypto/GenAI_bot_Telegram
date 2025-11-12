@@ -1,7 +1,7 @@
 # GenAI_bot_Telegram
 
 # PROJECT_SUMMARY.md
-# Avivo - Hybrid Telegram RAG Bot - Project Summary
+# Hybrid Telegram RAG Bot - Project Summary
 
 ## ✅ Project Completion Status
 
