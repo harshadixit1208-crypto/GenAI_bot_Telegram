@@ -1,0 +1,55 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Main Telegram RAG Bot
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: avivo_bot
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OLLAMA_URL=${OLLAMA_URL:-http://ollama:11434}
+      - DATABASE_PATH=/app/data/embeddings.db
+      - FAISS_INDEX_PATH=/app/data/faiss_index.bin
+      - LOG_LEVEL=INFO
+      - EMBEDDING_MODEL=all-MiniLM-L6-v2
+      - VISION_MODEL=Salesforce/blip-image-captioning-base
+      - CHUNK_SIZE_TOKENS=400
+      - CHUNK_OVERLAP_TOKENS=100
+      - RAG_TOP_K=3
+      - RAG_MAX_CONTEXT_TOKENS=3000
+      - LLM_MAX_TOKENS=256
+      - LLM_TEMPERATURE=0.0
+      - LLM_TIMEOUT_SECONDS=30
+    volumes:
+      - ./data:/app/data
+      - ./app:/app/app
+    restart: unless-stopped
+    networks:
+      - avivo_network
+    depends_on:
+      - ollama
+
+  # Optional: Local Ollama service for LLM
+  ollama:
+    image: ollama/ollama:latest
+    container_name: avivo_ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    networks:
+      - avivo_network
+    # Pull model on startup (optional)
+    # command: ollama pull llama2
+
+networks:
+  avivo_network:
+    driver: bridge
+
+volumes:
+  ollama_data:

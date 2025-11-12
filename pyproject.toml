@@ -1,0 +1,47 @@
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "avivo-bot"
+version = "1.0.0"
+description = "Hybrid Telegram RAG Bot with Vision AI"
+requires-python = ">=3.11"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # Pyflakes
+    "I",    # isort
+    "C",    # flake8-comprehensions
+    "B",    # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long
+    "B008",  # function call in default argument
+]
+
+[tool.ruff.isort]
+known-first-party = ["app"]
