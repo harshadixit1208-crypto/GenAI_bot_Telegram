@@ -59,3 +59,5 @@ logs/
 
 # Docker
 .dockerignore
+.env*.bak
+.env.bak
