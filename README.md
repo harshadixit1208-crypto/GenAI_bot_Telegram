@@ -1,5 +1,5 @@
 # README.md
-# Avivo: Hybrid Telegram RAG Bot
+# Hybrid Telegram RAG Bot
 
 A production-ready Telegram bot that combines **Retrieval-Augmented Generation (RAG)** for document Q&A with **BLIP-2 Vision AI** for image captioning.
 
